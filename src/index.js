@@ -1,21 +1,24 @@
-const axios = require('axios');
+const axios = require("axios");
 
 var pullRequests = [],
-    numberOfPulls, createdDate, i = 0;
+    numberOfPulls,
+    createdDate,
+    i = 0;
 
 function repos(repoName, dateStart, dateEnd) {
     axios({
             method: "get",
             url: `https://api.github.com/repos/Umuzi-org/${repoName}/pulls?state=all`,
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
             },
             auth: {
-                username: `Username`,
-                password: `Password`
-            }
-        }).then(response => {
-            numberOfPulls = response.data[0].number
+                username: `Siyabulela`,
+                password: `@#$fdsSDHJH`,
+            },
+        })
+        .then((response) => {
+            numberOfPulls = response.data[0].number;
 
             var dateFrom = dateStart.split("/");
             var dateTo = dateEnd.split("/");
@@ -23,16 +26,16 @@ function repos(repoName, dateStart, dateEnd) {
             dateEnd = new Date(dateTo);
 
             for (i = 0; i < numberOfPulls; i++) {
-                createdDate = new Date(response.data[i].created_at)
+                createdDate = new Date(response.data[i].created_at);
 
                 if (createdDate > dateStart && createdDate < dateEnd) {
-                    pullRequests[i] = response.data[i]
+                    pullRequests[i] = response.data[i];
                 }
             }
-            console.log(pullRequests)
+            console.log(pullRequests);
         })
-        .catch(err => {
-            console.log(err)
+        .catch((err) => {
+            console.log(err);
         });
 }
 
