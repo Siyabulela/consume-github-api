@@ -1,25 +1,21 @@
-const axios = require("axios");
-const logins = require(`../node_modules/cred.json`);
+const axios = require('axios');
 
 var pullRequests = [],
-    numberOfPulls,
-    createdDate,
-    i = 0;
+    numberOfPulls, createdDate, i = 0;
 
 function repos(repoName, dateStart, dateEnd) {
     axios({
             method: "get",
             url: `https://api.github.com/repos/Umuzi-org/${repoName}/pulls?state=all`,
             headers: {
-                "Content-Type": "application/json",
+                "Content-Type": "application/json"
             },
             auth: {
-                username: logins[0].user,
-                password: logins[0].pass,
-            },
-        })
-        .then((response) => {
-            numberOfPulls = response.data[0].number;
+                username: `Username`,
+                password: `Password`
+            }
+        }).then(response => {
+            numberOfPulls = response.data[0].number
 
             var dateFrom = dateStart.split("/");
             var dateTo = dateEnd.split("/");
@@ -27,18 +23,18 @@ function repos(repoName, dateStart, dateEnd) {
             dateEnd = new Date(dateTo);
 
             for (i = 0; i < numberOfPulls; i++) {
-                createdDate = new Date(response.data[i].created_at);
+                createdDate = new Date(response.data[i].created_at)
 
                 if (createdDate > dateStart && createdDate < dateEnd) {
-                    pullRequests[i] = response.data[i];
+                    pullRequests[i] = response.data[i]
                 }
             }
-            console.log(pullRequests);
+            console.log(pullRequests)
         })
-        .catch((err) => {
-            console.log(err);
+        .catch(err => {
+            console.log(err)
         });
 }
 
-repos(`Siyabulela-Khumalo-266-string-calculator`, `05/20/2020`, `06/29/2020`);
+repos(`Siyabulela-Khumalo-269-password-checker`, `05/20/2019`, `06/29/2021`);
 //DATE FORMAT - MM/DD/YYYY
