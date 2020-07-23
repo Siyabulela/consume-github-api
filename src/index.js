@@ -3,7 +3,9 @@ const axios = require("axios");
 var pullRequests = [],
     numberOfPulls,
     createdDate,
-    i = 0;
+    updatedDate,
+    createdDate,
+    mergedDate;
 
 function repos(repoName, dateStart, dateEnd) {
     axios({
@@ -13,8 +15,8 @@ function repos(repoName, dateStart, dateEnd) {
                 "Content-Type": "application/json",
             },
             auth: {
-                username: `Siyabulela`,
-                password: `@#$fdsSDHJH`,
+                username: `USERNAME`, //Your GitHub username here.
+                password: `PASSWORD`, //Your GitHub password here.
             },
         })
         .then((response) => {
@@ -27,8 +29,20 @@ function repos(repoName, dateStart, dateEnd) {
 
             for (i = 0; i < numberOfPulls; i++) {
                 createdDate = new Date(response.data[i].created_at);
+                updatedDate = new Date(response.data[i].updated_at);
+                closedDate = new Date(response.data[i].closed_at);
+                mergedDate = response.data[i].merged_at;
 
-                if (createdDate > dateStart && createdDate < dateEnd) {
+                if (mergedDate != null) {
+                    mergedDate = new Date(mergedDate);
+                }
+
+                if (
+                    (createdDate > dateStart && createdDate < dateEnd) ||
+                    (updatedDate > dateStart && updatedDate < dateEnd) ||
+                    (closedDate > dateStart && closedDate < dateEnd) ||
+                    (mergedDate > dateStart && mergedDate < dateEnd)
+                ) {
                     pullRequests[i] = response.data[i];
                 }
             }
@@ -39,5 +53,5 @@ function repos(repoName, dateStart, dateEnd) {
         });
 }
 
-repos(`Siyabulela-Khumalo-269-password-checker`, `05/20/2019`, `06/29/2021`);
+repos(`Siyabulela-Khumalo-266-string-calculator`, `05/20/2019`, `06/29/2021`);
 //DATE FORMAT - MM/DD/YYYY
