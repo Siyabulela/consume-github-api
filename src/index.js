@@ -2,7 +2,10 @@ const axios = require("axios");
 
 var pullRequests = [],
     numberOfPulls,
-    createdDate, updatedDate, createdDate, mergedDate;
+    createdDate,
+    updatedDate,
+    createdDate,
+    mergedDate;
 
 function repos(repoName, dateStart, dateEnd) {
     axios({
@@ -31,18 +34,19 @@ function repos(repoName, dateStart, dateEnd) {
                 mergedDate = response.data[i].merged_at;
 
                 if (mergedDate != null) {
-                    mergedDate = new Date(mergedDate)
+                    mergedDate = new Date(mergedDate);
                 }
 
-                if ((createdDate > dateStart && createdDate < dateEnd) ||
+                if (
+                    (createdDate > dateStart && createdDate < dateEnd) ||
                     (updatedDate > dateStart && updatedDate < dateEnd) ||
                     (closedDate > dateStart && closedDate < dateEnd) ||
-                    (mergedDate > dateStart && mergedDate < dateEnd)) {
+                    (mergedDate > dateStart && mergedDate < dateEnd)
+                ) {
                     pullRequests[i] = response.data[i];
                 }
             }
             console.log(pullRequests);
-
         })
         .catch((err) => {
             console.log(err);
