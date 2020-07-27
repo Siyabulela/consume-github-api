@@ -15,8 +15,8 @@ function repos(repoName, dateStart, dateEnd) {
                 "Content-Type": "application/json",
             },
             auth: {
-                username: `Siyabulela`, //Your GitHub username here.
-                password: `Khumalo079`, //Your GitHub password here.
+                username: `username`, //Your GitHub username here.
+                password: `password`, //Your GitHub password here.
             },
         })
         .then((response) => {
