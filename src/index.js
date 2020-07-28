@@ -15,8 +15,8 @@ function repos(repoName, dateStart, dateEnd) {
                 "Content-Type": "application/json",
             },
             auth: {
-                username: `USERNAME`, //Your GitHub username here.
-                password: `PASSWORD`, //Your GitHub password here.
+                username: `username`, //Your GitHub username here.
+                password: `password`, //Your GitHub password here.
             },
         })
         .then((response) => {
@@ -43,15 +43,20 @@ function repos(repoName, dateStart, dateEnd) {
                     (closedDate > dateStart && closedDate < dateEnd) ||
                     (mergedDate > dateStart && mergedDate < dateEnd)
                 ) {
-                    pullRequests[i] = response.data[i];
+                    console.log(
+                        `-------------------------------------------------------`
+                    );
+                    console.log(`Pull number : #${response.data[i].number}`);
+                    console.log(`Date created: ${createdDate}`);
+                    console.log(`Date updated: ${updatedDate}`);
+                    console.log(`Date merged : ${mergedDate}`);
+                    console.log(`Date Closed : ${closedDate}`);
                 }
             }
-            console.log(pullRequests);
         })
         .catch((err) => {
             console.log(err);
         });
 }
-
 repos(`Siyabulela-Khumalo-266-string-calculator`, `05/20/2019`, `06/29/2021`);
 //DATE FORMAT - MM/DD/YYYY
